@@ -201,7 +201,13 @@ function ($) {
 
       select: function () {
         var $selectedItem = this.$menu.find('.active');
-        this.$element.val($selectedItem.text()).change();
+        var $templateItem = $selectedItem.find('.typeahead-display-val');
+        var $standardItem = $selectedItem.find('a');
+        if($templateItem.length){
+          this.$element.val($templateItem.text()).change();
+        } else if($standardItem.length){
+          this.$element.val($standardItem.text()).change();
+        }
         this.options.itemSelected(JSON.parse($selectedItem.attr('data-value')));
         return this.hide();
       },
